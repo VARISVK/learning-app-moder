@@ -3,6 +3,7 @@ const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
 const path = require('path');
+const Database = require('../src/database/postgres-database');
 
 const app = express();
 const server = http.createServer(app);
@@ -153,6 +154,78 @@ app.get('/api/online-users', (req, res) => {
 
 app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', onlineUsers: onlineUsers.size });
+});
+
+// User registration
+app.post('/api/register', async (req, res) => {
+    try {
+        const result = await Database.registerUser(req.body);
+        res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    }
+});
+
+// User login
+app.post('/api/login', async (req, res) => {
+    try {
+        const result = await Database.loginUser(req.body);
+        res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    }
+});
+
+// Get user profile
+app.get('/api/user/:id', async (req, res) => {
+    try {
+        const result = await Database.getUserProfile(req.params.id);
+        res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    }
+});
+
+// Update wallet
+app.post('/api/wallet/update', async (req, res) => {
+    try {
+        const { userId, amount } = req.body;
+        const result = await Database.updateWallet(userId, amount);
+        res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    }
+});
+
+// Get wallet transactions
+app.get('/api/wallet/transactions/:userId', async (req, res) => {
+    try {
+        const result = await Database.getWalletTransactions(req.params.userId);
+        res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    }
+});
+
+// Get online users from database
+app.get('/api/database/online-users/:currentUserId', async (req, res) => {
+    try {
+        const result = await Database.getOnlineUsers(req.params.currentUserId);
+        res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    }
+});
+
+// Set user offline
+app.post('/api/user/offline', async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const result = await Database.setUserOffline(userId);
+        res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    }
 });
 
 const PORT = process.env.PORT || 3001;
