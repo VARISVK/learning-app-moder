@@ -7,6 +7,7 @@
     "start": "electron .",
     "dev": "electron . --dev",
     "build": "electron-builder",
+    "build:web": "echo 'Web version - no build needed'",
     "server": "node server/server.js",
     "web": "node web-version/server.js",
     "postinstall": "echo 'Dependencies installed successfully'"
@@ -30,8 +31,10 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
     "socket.io": "^4.7.2",
-    "sqlite3": "^5.1.6",
     "uuid": "^9.0.0"
+  },
+  "optionalDependencies": {
+    "sqlite3": "^5.1.6"
   },
   "build": {
     "appId": "com.edtech.learningapp",
