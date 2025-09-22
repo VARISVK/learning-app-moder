@@ -248,15 +248,12 @@ app.post('/api/user/offline', async (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 
-// Add a small delay to allow database to be ready
-setTimeout(() => {
-    server.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-        console.log(`WebSocket server ready for connections`);
-        console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-        console.log(`Database URL: ${process.env.DATABASE_URL ? 'Configured' : 'Not configured - using mock database'}`);
-    });
-}, 2000); // 2 second delay
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`WebSocket server ready for connections`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`Database URL: ${process.env.DATABASE_URL ? 'Configured' : 'Not configured - using mock database'}`);
+});
 
 // Handle server errors gracefully
 server.on('error', (error) => {
