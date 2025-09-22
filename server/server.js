@@ -174,6 +174,17 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+// Debug endpoint for Railway troubleshooting
+app.get('/api/debug', (req, res) => {
+    res.json({
+        nodeEnv: process.env.NODE_ENV,
+        databaseUrl: process.env.DATABASE_URL ? 'Set (length: ' + process.env.DATABASE_URL.length + ')' : 'Not set',
+        port: process.env.PORT,
+        databaseType: process.env.DATABASE_URL ? 'PostgreSQL' : 'Mock',
+        timestamp: new Date().toISOString()
+    });
+});
+
 // User registration
 app.post('/api/register', async (req, res) => {
     try {

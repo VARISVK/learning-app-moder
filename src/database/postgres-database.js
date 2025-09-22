@@ -9,6 +9,9 @@ class PostgreSQLDatabase {
 
   async initDatabase() {
     try {
+      console.log('Starting database initialization...');
+      console.log('DATABASE_URL available:', !!process.env.DATABASE_URL);
+      
       // Test connection first
       await this.testConnection();
       // Create tables if they don't exist
@@ -17,18 +20,41 @@ class PostgreSQLDatabase {
       console.log('PostgreSQL database initialized successfully');
     } catch (error) {
       console.error('Database initialization error:', error);
+      console.error('Error details:', {
+        message: error.message,
+        code: error.code,
+        detail: error.detail
+      });
       console.log('Will retry database operations on first use');
       this.initialized = false;
     }
   }
 
   async testConnection() {
-    const client = await pool.connect();
-    try {
-      await client.query('SELECT 1');
-      console.log('Database connection test successful');
-    } finally {
-      client.release();
+    const maxRetries = 3;
+    let retries = 0;
+    
+    while (retries < maxRetries) {
+      try {
+        const client = await pool.connect();
+        try {
+          await client.query('SELECT 1');
+          console.log('Database connection test successful');
+          return;
+        } finally {
+          client.release();
+        }
+      } catch (error) {
+        retries++;
+        console.error(`Database connection attempt ${retries} failed:`, error.message);
+        
+        if (retries >= maxRetries) {
+          throw error;
+        }
+        
+        // Wait before retrying
+        await new Promise(resolve => setTimeout(resolve, 2000 * retries));
+      }
     }
   }
 

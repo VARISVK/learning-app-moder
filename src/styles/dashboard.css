@@ -1,14 +1,14 @@
 /* Dashboard Layout */
 .dashboard-container {
     min-height: 100vh;
-    background-color: #0a0a0a;
+    background-color: #f8fafc;
     display: flex;
     flex-direction: column;
 }
 
 .dashboard-header {
-    background-color: #1a1a1a;
-    border-bottom: 1px solid #333333;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
     padding: 16px 24px;
     display: flex;
     justify-content: space-between;
@@ -16,10 +16,11 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .header-left h2 {
-    color: #ffffff;
+    color: #1a1a1a;
     font-size: 20px;
     font-weight: 700;
     margin: 0;
@@ -35,20 +36,20 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    background-color: #0a0a0a;
+    background-color: #f1f5f9;
     padding: 8px 16px;
     border-radius: 6px;
-    border: 1px solid #333333;
+    border: 1px solid #e2e8f0;
 }
 
 .wallet-label {
-    color: #cccccc;
+    color: #64748b;
     font-size: 14px;
     font-weight: 500;
 }
 
 .wallet-balance {
-    color: #00ff88;
+    color: #2563eb;
     font-size: 16px;
     font-weight: 700;
 }
@@ -60,7 +61,7 @@
 }
 
 .user-info span {
-    color: #ffffff;
+    color: #1a1a1a;
     font-weight: 600;
 }
 
@@ -73,10 +74,11 @@
 /* Sidebar */
 .sidebar {
     width: 250px;
-    background-color: #1a1a1a;
-    border-right: 1px solid #333333;
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
     padding: 24px 0;
     flex-shrink: 0;
+    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.05);
 }
 
 .nav-menu {
@@ -89,21 +91,21 @@
     display: flex;
     align-items: center;
     padding: 16px 24px;
-    color: #cccccc;
+    color: #64748b;
     cursor: pointer;
     transition: all 0.3s ease;
     border-left: 3px solid transparent;
 }
 
 .nav-item:hover {
-    background-color: #0a0a0a;
-    color: #ffffff;
+    background-color: #f1f5f9;
+    color: #374151;
 }
 
 .nav-item.active {
-    background-color: #0a0a0a;
-    color: #00ff88;
-    border-left-color: #00ff88;
+    background-color: #f1f5f9;
+    color: #2563eb;
+    border-left-color: #2563eb;
 }
 
 .nav-icon {
@@ -116,7 +118,7 @@
     flex: 1;
     padding: 24px;
     overflow-y: auto;
-    background-color: #0a0a0a;
+    background-color: #f8fafc;
 }
 
 .page {
@@ -128,7 +130,7 @@
 }
 
 .page h3 {
-    color: #ffffff;
+    color: #1a1a1a;
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 24px;
@@ -143,21 +145,22 @@
 }
 
 .stat-card {
-    background-color: #1a1a1a;
-    border: 1px solid #333333;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
     border-radius: 8px;
     padding: 24px;
     text-align: center;
     transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .stat-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .stat-card h4 {
-    color: #cccccc;
+    color: #64748b;
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 8px;
@@ -166,7 +169,7 @@
 }
 
 .stat-number {
-    color: #00ff88;
+    color: #2563eb;
     font-size: 32px;
     font-weight: 700;
     margin: 0;
@@ -215,7 +218,7 @@
     
     .nav-item.active {
         border-left: none;
-        border-bottom-color: #00ff88;
+        border-bottom-color: #2563eb;
     }
     
     .main-content {
