@@ -3,7 +3,10 @@ const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
 const path = require('path');
-const Database = require('../src/database/postgres-database');
+// Use mock database for local development, PostgreSQL for production
+const Database = process.env.DATABASE_URL 
+  ? require('../src/database/postgres-database')
+  : require('../src/database/mock-database');
 
 const app = express();
 const server = http.createServer(app);
@@ -16,7 +19,17 @@ const io = socketIo(server, {
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({
+    verify: (req, res, buf, encoding) => {
+        try {
+            JSON.parse(buf);
+        } catch (e) {
+            console.error('Invalid JSON received:', buf.toString());
+            res.status(400).json({ success: false, error: 'Invalid JSON format' });
+            throw new Error('Invalid JSON');
+        }
+    }
+}));
 
 // Serve static files from src directory
 app.use(express.static(path.join(__dirname, '../src')));

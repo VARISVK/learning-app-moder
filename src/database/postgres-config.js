@@ -1,7 +1,10 @@
 const { Pool } = require('pg');
 
 // Database configuration
-const dbConfig = {
+const dbConfig = process.env.DATABASE_URL ? {
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+} : {
   user: process.env.DB_USER || 'edtech_learning_db_user',
   host: process.env.DB_HOST || 'localhost',
   database: process.env.DB_NAME || 'edtech_learning_db',
@@ -9,6 +12,9 @@ const dbConfig = {
   port: process.env.DB_PORT || 5432,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 };
+
+// For local development without database, we'll use a mock
+const isLocalDev = !process.env.DATABASE_URL && process.env.NODE_ENV !== 'production';
 
 // Create connection pool
 const pool = new Pool(dbConfig);
