@@ -17,6 +17,14 @@ const io = socketIo(server, {
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from src directory
+app.use(express.static(path.join(__dirname, '../src')));
+
+// Serve the main HTML file
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../src/index.html'));
+});
+
 // Store online users
 const onlineUsers = new Map();
 
