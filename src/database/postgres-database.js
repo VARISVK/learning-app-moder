@@ -3,16 +3,42 @@ const bcrypt = require('bcryptjs');
 
 class PostgreSQLDatabase {
   constructor() {
+    this.initialized = false;
     this.initDatabase();
   }
 
   async initDatabase() {
     try {
+      // Test connection first
+      await this.testConnection();
       // Create tables if they don't exist
       await this.createTables();
+      this.initialized = true;
       console.log('PostgreSQL database initialized successfully');
     } catch (error) {
       console.error('Database initialization error:', error);
+      console.log('Will retry database operations on first use');
+      this.initialized = false;
+    }
+  }
+
+  async testConnection() {
+    const client = await pool.connect();
+    try {
+      await client.query('SELECT 1');
+      console.log('Database connection test successful');
+    } finally {
+      client.release();
+    }
+  }
+
+  async ensureInitialized() {
+    if (!this.initialized) {
+      console.log('Database not initialized, attempting to initialize...');
+      await this.initDatabase();
+      if (!this.initialized) {
+        throw new Error('Database initialization failed');
+      }
     }
   }
 
@@ -90,6 +116,7 @@ class PostgreSQLDatabase {
   }
 
   async registerUser(userData) {
+    await this.ensureInitialized();
     const client = await pool.connect();
     try {
       const { username, email, password, fullName } = userData;

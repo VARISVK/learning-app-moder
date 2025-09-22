@@ -166,7 +166,12 @@ app.get('/api/online-users', (req, res) => {
 });
 
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK', onlineUsers: onlineUsers.size });
+    res.json({ 
+        status: 'OK', 
+        onlineUsers: onlineUsers.size,
+        database: process.env.DATABASE_URL ? 'configured' : 'mock',
+        timestamp: new Date().toISOString()
+    });
 });
 
 // User registration
@@ -243,9 +248,22 @@ app.post('/api/user/offline', async (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 
-server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    console.log(`WebSocket server ready for connections`);
+// Add a small delay to allow database to be ready
+setTimeout(() => {
+    server.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+        console.log(`WebSocket server ready for connections`);
+        console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`Database URL: ${process.env.DATABASE_URL ? 'Configured' : 'Not configured - using mock database'}`);
+    });
+}, 2000); // 2 second delay
+
+// Handle server errors gracefully
+server.on('error', (error) => {
+    console.error('Server error:', error);
+    if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use`);
+    }
 });
 
 
