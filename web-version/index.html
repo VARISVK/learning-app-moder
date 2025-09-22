@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EdTech Learning Platform - Web Version</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login/Register Page -->
+    <div id="auth-container" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>EdTech Learning Platform</h1>
+                <p>Connect. Learn. Grow Together.</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <div class="form-group">
+                    <label for="login-username">Username or Email</label>
+                    <input type="text" id="login-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-fullname">Full Name</label>
+                    <input type="text" id="register-fullname" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+
+            <div id="auth-message" class="auth-message"></div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard-container" class="dashboard-container hidden">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h2>EdTech Learning Platform</h2>
+            </div>
+            <div class="header-right">
+                <div class="wallet-section">
+                    <span class="wallet-label">Wallet:</span>
+                    <span id="wallet-balance" class="wallet-balance">$100.00</span>
+                    <button id="recharge-btn" class="btn btn-small">Recharge</button>
+                </div>
+                <div class="user-info">
+                    <span id="user-name">Test User</span>
+                    <button id="logout-btn" class="btn btn-outline">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <nav class="sidebar">
+                <ul class="nav-menu">
+                    <li class="nav-item active" data-page="dashboard">
+                        <span class="nav-icon">📊</span>
+                        Dashboard
+                    </li>
+                    <li class="nav-item" data-page="study-partner">
+                        <span class="nav-icon">👥</span>
+                        Find Study Partner
+                    </li>
+                    <li class="nav-item" data-page="wallet">
+                        <span class="nav-icon">💳</span>
+                        Wallet
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="main-content">
+                <!-- Dashboard Home -->
+                <div id="dashboard-page" class="page active">
+                    <h3>Welcome back, <span id="dashboard-user-name">Test User</span>!</h3>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <h4>Study Sessions</h4>
+                            <p class="stat-number">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Partners Found</h4>
+                            <p class="stat-number">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Hours Studied</h4>
+                            <p class="stat-number">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Partner Page -->
+                <div id="study-partner-page" class="page">
+                    <h3>Find Your Study Partner</h3>
+                    <div class="online-users-section">
+                        <h4>Online Students</h4>
+                        <div id="online-users-list" class="users-list">
+                            <!-- Online users will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wallet Page -->
+                <div id="wallet-page" class="page">
+                    <h3>Wallet Management</h3>
+                    <div class="wallet-info">
+                        <div class="balance-display">
+                            <h4>Current Balance</h4>
+                            <p class="balance-amount" id="wallet-page-balance">$100.00</p>
+                        </div>
+                        <div class="recharge-section">
+                            <h4>Recharge Wallet</h4>
+                            <div class="recharge-form">
+                                <input type="number" id="recharge-amount" placeholder="Enter amount" min="1" step="0.01">
+                                <button id="process-recharge" class="btn btn-primary">Recharge</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- WebRTC Screen Share Modal -->
+    <div id="screen-share-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Screen Sharing Session</h3>
+                <button id="close-share-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="video-container">
+                    <video id="remote-video" autoplay playsinline></video>
+                    <video id="local-video" autoplay playsinline muted></video>
+                </div>
+                <div class="share-controls">
+                    <button id="start-screen-share" class="btn btn-primary">Start Screen Share</button>
+                    <button id="start-camera-share" class="btn btn-outline">Start Camera</button>
+                    <button id="test-screen-share" class="btn btn-outline">Test Screen Share</button>
+                    <button id="stop-screen-share" class="btn btn-danger">Stop Sharing</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+

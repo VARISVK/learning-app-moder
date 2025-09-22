@@ -1,0 +1,269 @@
+/* Study Partner Page Styles */
+.online-users-section {
+    background-color: #1a1a1a;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.online-users-section h4 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.online-users-section h4::before {
+    content: '●';
+    color: #00ff88;
+    font-size: 12px;
+}
+
+.users-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.user-card {
+    background-color: #0a0a0a;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.user-card:hover {
+    border-color: #00ff88;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.1);
+}
+
+.user-card.online {
+    border-left: 4px solid #00ff88;
+}
+
+.user-card.offline {
+    border-left: 4px solid #666666;
+    opacity: 0.7;
+}
+
+.user-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.user-avatar {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #00ff88, #00cc6a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.user-username {
+    color: #cccccc;
+    font-size: 14px;
+}
+
+.user-status {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #00ff88;
+}
+
+.status-indicator.offline {
+    background-color: #666666;
+}
+
+.user-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.btn-connect {
+    flex: 1;
+    padding: 10px 16px;
+    background-color: #00ff88;
+    color: #000000;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-connect:hover {
+    background-color: #00e077;
+    transform: translateY(-1px);
+}
+
+.btn-connect:disabled {
+    background-color: #333333;
+    color: #666666;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-message {
+    padding: 10px 16px;
+    background-color: transparent;
+    color: #cccccc;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-message:hover {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666666;
+}
+
+.empty-state h3 {
+    color: #cccccc;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Loading State */
+.users-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.users-loading .loading {
+    width: 32px;
+    height: 32px;
+    border-width: 3px;
+}
+
+/* Connection Modal */
+.connection-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.connection-content {
+    background-color: #1a1a1a;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.connection-content h3 {
+    color: #ffffff;
+    margin-bottom: 16px;
+}
+
+.connection-content p {
+    color: #cccccc;
+    margin-bottom: 24px;
+}
+
+.connection-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .users-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .user-card {
+        padding: 16px;
+    }
+    
+    .user-actions {
+        flex-direction: column;
+    }
+    
+    .btn-connect,
+    .btn-message {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .online-users-section {
+        padding: 16px;
+    }
+    
+    .user-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .user-status {
+        position: static;
+        justify-content: center;
+        margin-top: 8px;
+    }
+}
+

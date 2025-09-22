@@ -1,0 +1,40 @@
+{
+  "name": "edtech-learning-app",
+  "version": "1.0.0",
+  "description": "Professional EdTech Learning Platform with Study Partner Matching",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "server": "node server/server.js",
+    "web": "node web-version/server.js"
+  },
+  "keywords": ["edtech", "learning", "study-partner", "webrtc"],
+  "author": "EdTech Startup",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.6",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "cors": "^2.8.5",
+    "uuid": "^9.0.0"
+  },
+  "build": {
+    "appId": "com.edtech.learningapp",
+    "productName": "EdTech Learning App",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/**/*"
+    ]
+  }
+}
