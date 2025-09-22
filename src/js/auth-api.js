@@ -77,30 +77,45 @@ class AuthManagerAPI {
             case 'username':
                 if (value.length < 3) {
                     isValid = false;
-                    errorMessage = 'Username must be at least 3 characters';
+                    errorMessage = 'Username must be at least 3 characters long';
                 } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
                     isValid = false;
                     errorMessage = 'Username can only contain letters, numbers, and underscores';
+                } else if (value.length > 20) {
+                    isValid = false;
+                    errorMessage = 'Username must be less than 20 characters';
                 }
                 break;
 
             case 'email':
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                if (!value) {
                     isValid = false;
-                    errorMessage = 'Please enter a valid email address';
+                    errorMessage = 'Email address is required';
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Please enter a valid email address (e.g., user@example.com)';
                 }
                 break;
 
             case 'password':
                 if (value.length < 6) {
                     isValid = false;
-                    errorMessage = 'Password must be at least 6 characters';
+                    errorMessage = 'Password must be at least 6 characters long';
+                } else if (value.length > 50) {
+                    isValid = false;
+                    errorMessage = 'Password must be less than 50 characters';
+                } else if (!/(?=.*[a-zA-Z])/.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Password must contain at least one letter';
                 }
                 break;
 
             case 'confirmPassword':
                 const password = document.getElementById('register-password').value;
-                if (value !== password) {
+                if (!value) {
+                    isValid = false;
+                    errorMessage = 'Please confirm your password';
+                } else if (value !== password) {
                     isValid = false;
                     errorMessage = 'Passwords do not match';
                 }
@@ -109,7 +124,13 @@ class AuthManagerAPI {
             case 'fullName':
                 if (value.length < 2) {
                     isValid = false;
-                    errorMessage = 'Full name must be at least 2 characters';
+                    errorMessage = 'Full name must be at least 2 characters long';
+                } else if (value.length > 50) {
+                    isValid = false;
+                    errorMessage = 'Full name must be less than 50 characters';
+                } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Full name can only contain letters and spaces';
                 }
                 break;
         }
